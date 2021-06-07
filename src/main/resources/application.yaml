@@ -1,0 +1,41 @@
+spring:
+  profiles:
+    active: mysql
+
+  batch:
+    job:
+      names: ${job.name:NONE}
+
+    ## always - Spring-Batch DDL이 DB에 항상 반영 // 개발환경 추천
+    ## embedded - Embedded DB인 경우에만 Spring-Batch DDL이 DB에 반영 // 개발환경 추천
+    ## never - Spring-Batch DDL이 DB에 절대 반영되지 않음 (직접 SQL을 관리) // 운영환경 추천
+    initialize-schema: never
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    root: info
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/spring-batch
+    username: sa
+    password:
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_batch
+    username: root
+    password: root
