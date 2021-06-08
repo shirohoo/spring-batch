@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.tasklet;
+package io.batch.springbatch.job.step.tasklet;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

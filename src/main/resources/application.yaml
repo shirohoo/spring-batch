@@ -4,6 +4,7 @@ spring:
 
   batch:
     job:
+      ## 실행옵션에 job name이 없을 경우 아무런 job도 실행하지 않음 (안전장치)
       names: ${job.name:NONE}
 
     ## always - Spring-Batch DDL이 DB에 항상 반영 // 개발환경 추천
@@ -13,6 +14,7 @@ spring:
 
   jpa:
     open-in-view: false
+    show-sql: true
     hibernate:
       ddl-auto: none
 
@@ -36,6 +38,9 @@ spring:
       on-profile: mysql
 
   datasource:
-    url: jdbc:mysql://localhost:3306/spring_batch
+    initialization-mode: always
+    schema: classpath:sql/member.sql, classpath:sql/person.sql
+
+    url: jdbc:mysql://localhost:3306/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
     password: root

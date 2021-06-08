@@ -42,8 +42,7 @@ public class SpringBatchApplication {
 spring:
   batch:
     job:
-      ## jar를 실행할 때 어떤 Job을 실행할지 매핑하는 옵션
-      ## 실행 옵션: --job.name={jobName}
+      ## 실행옵션에 job name이 없을 경우 아무런 job도 실행하지 않음 (안전장치)
       ## ex) --job.name=itemReaderJob
       names: ${job.name:NONE}
 

@@ -1,5 +1,6 @@
 package io.batch.springbatch.job.custom;
 
+import io.batch.springbatch.job.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -67,7 +68,6 @@ public class ItemReaderConfiguration {
     private ItemWriter<Member> itemWriter() {
         return items->log.info(items.stream()
                                     .map(Member::getName)
-                                    .collect(joining(", "))
-                              );
+                                    .collect(joining(", ")));
     }
 }
