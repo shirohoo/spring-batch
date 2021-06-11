@@ -19,8 +19,6 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.test.JobLauncherTestUtils;
-import org.springframework.batch.test.JobRepositoryTestUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -123,15 +121,5 @@ public class CsvConfiguration {
         
         itemWriter.afterPropertiesSet();
         return itemWriter;
-    }
-    
-    @Bean
-    JobLauncherTestUtils jobLauncherTestUtils() {
-        return new JobLauncherTestUtils();
-    }
-    
-    @Bean
-    JobRepositoryTestUtils jobRepositoryTestUtils() {
-        return new JobRepositoryTestUtils();
     }
 }
