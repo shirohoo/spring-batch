@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: mysql
+    active: local
 
   batch:
     job:
@@ -21,26 +21,3 @@ spring:
 logging:
   level:
     root: info
----
-spring:
-  config:
-    activate:
-      on-profile: h2
-
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/spring-batch
-    username: sa
-    password:
----
-spring:
-  config:
-    activate:
-      on-profile: mysql
-
-  datasource:
-    initialization-mode: always
-    schema: classpath:sql/member.sql, classpath:sql/person.sql
-
-    url: jdbc:mysql://localhost:3306/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
-    username: root
-    password: root
