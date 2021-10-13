@@ -1,10 +1,6 @@
 spring:
-  config:
-    activate:
-      on-profile: mysql
-
   datasource:
-    initialization-mode: always
+    initialization-mode: never
     schema: classpath:sql/member.sql, classpath:sql/person.sql
 
     url: jdbc:mysql://localhost:3306/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
