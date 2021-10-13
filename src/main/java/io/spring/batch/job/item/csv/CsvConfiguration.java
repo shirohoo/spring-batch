@@ -1,6 +1,6 @@
-package io.batch.springbatch.job.item.csv;
+package io.spring.batch.job.item.csv;
 
-import io.batch.springbatch.job.model.Member;
+import io.spring.batch.job.model.Member;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,20 +33,20 @@ import static java.lang.Integer.parseInt;
 public class CsvConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     private static final String JOB_NAME = "csvJob";
     private static final String STEP_ONE = "csvStep";
-    
+
     private static final String ENCODING = "UTF-8";
     private static final String CSV_ITEM_READER = "csvItemReader";
     private static final String CSV_ITEM_WRITER = "csvItemWriter";
     private static final String INPUT_PATH = "csv/input/member.csv";
     private static final String OUTPUT_PATH = "src/main/resources/csv/output/member.csv";
-    
+
     private static final String HEADER = "id,name,age,address";
     //    private static final String FOOTER = "-------------------\n"; // append(true)일 경우 footer는 개행문자를 추가해야 다음줄에 추가됨
     private static final String FOOTER = "-------------------";
-    
+
     @Bean
     public Job csvJob() throws Exception {
         return jobBuilderFactory.get(JOB_NAME)
@@ -54,7 +54,7 @@ public class CsvConfiguration {
                                 .start(csvStep(null))
                                 .build();
     }
-    
+
     @Bean
     @JobScope
     public Step csvStep(@Value("#{jobParameters[chunkSize]}") String value) throws Exception {
@@ -64,7 +64,7 @@ public class CsvConfiguration {
                                  .writer(this.csvItemWriter())
                                  .build();
     }
-    
+
     /**
      * Batch-Application 실행 시 실행 옵션으롤 chunk size 지정
      * 입력 된 실행옵션이 없으면 size=10으로 지정
@@ -73,14 +73,14 @@ public class CsvConfiguration {
     private int getChunkSize(String value) {
         return StringUtils.isNotEmpty(value) ? parseInt(value) : 10;
     }
-    
+
     private FlatFileItemReader<Member> csvItemReader() throws Exception {
         DefaultLineMapper<Member> mapper = new DefaultLineMapper<>();
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
-        
+
         tokenizer.setNames("id", "name", "age", "address");
         mapper.setLineTokenizer(tokenizer);
-        
+
         mapper.setFieldSetMapper(fieldSet->{
             int id = fieldSet.readInt("id");
             String name = fieldSet.readString("name");
@@ -88,7 +88,7 @@ public class CsvConfiguration {
             String address = fieldSet.readString("address");
             return new Member(id, name, age, address);
         });
-        
+
         FlatFileItemReader<Member> itemReader = new FlatFileItemReaderBuilder<Member>()
                 .name(CSV_ITEM_READER)
                 .encoding(ENCODING)
@@ -96,19 +96,19 @@ public class CsvConfiguration {
                 .linesToSkip(1) // csv파일의 첫 row는 컬럼 메타데이터이므로 스킵
                 .lineMapper(mapper)
                 .build();
-        
+
         itemReader.afterPropertiesSet(); // itemReader 검증메서드
         return itemReader;
     }
-    
+
     private ItemWriter<Member> csvItemWriter() throws Exception {
         BeanWrapperFieldExtractor<Member> fieldExtractor = new BeanWrapperFieldExtractor<>();
         DelimitedLineAggregator<Member> aggregator = new DelimitedLineAggregator<>();
-        
+
         fieldExtractor.setNames(new String[] {"id", "name", "age", "address"});
         aggregator.setDelimiter(",");
         aggregator.setFieldExtractor(fieldExtractor);
-        
+
         FlatFileItemWriter<Member> itemWriter = new FlatFileItemWriterBuilder<Member>()
                 .name(CSV_ITEM_WRITER)
                 .encoding(ENCODING)
@@ -118,7 +118,7 @@ public class CsvConfiguration {
                 .footerCallback(writer->writer.write(FOOTER)) // csv 최하단에 한줄 생성
                 .append(true) // 이 옵션을 주면 새로운 파일을 생성하는게 아닌, 기존 파일에 추가된 내용을 이어붙이도록 동작함
                 .build();
-        
+
         itemWriter.afterPropertiesSet();
         return itemWriter;
     }

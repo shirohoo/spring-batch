@@ -1,6 +1,6 @@
-package io.batch.springbatch.job.custom;
+package io.spring.batch.job.custom;
 
-import io.batch.springbatch.job.model.Member;
+import io.spring.batch.job.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.joining;
 public class ItemReaderConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     @Bean
     public Job itemReaderJob() {
         return jobBuilderFactory.get("itemReaderJob")
@@ -31,7 +31,7 @@ public class ItemReaderConfiguration {
                                 .start(customItemReaderStep())
                                 .build();
     }
-    
+
     @Bean
     public Step customItemReaderStep() {
         return stepBuilderFactory.get("customItemReaderStep")
@@ -40,7 +40,7 @@ public class ItemReaderConfiguration {
                                  .writer(itemWriter())
                                  .build();
     }
-    
+
     private List<Member> getItems() {
         List<Member> members = new ArrayList<>();
         for(int i = 0; i < 100; i++) {
@@ -48,7 +48,7 @@ public class ItemReaderConfiguration {
         }
         return members;
     }
-    
+
     /**
      * <pre>
      *     [예상 출력 패턴]

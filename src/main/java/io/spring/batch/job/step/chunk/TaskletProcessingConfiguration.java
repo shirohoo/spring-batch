@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.step.chunk;
+package io.spring.batch.job.step.chunk;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import static java.lang.Integer.parseInt;
 public class TaskletProcessingConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     /**
      * Batch items
      */
@@ -38,7 +38,7 @@ public class TaskletProcessingConfiguration {
         }
         return items;
     }
-    
+
     @Bean
     public Job taskletProcessingJob() {
         return jobBuilderFactory.get("taskletProcessing")
@@ -46,14 +46,14 @@ public class TaskletProcessingConfiguration {
                                 .start(this.taskletBaseStep())
                                 .build();
     }
-    
+
     @Bean
     public Step taskletBaseStep() {
         return stepBuilderFactory.get("taskBaseStep")
                                  .tasklet(this.tasklet(null))
                                  .build();
     }
-    
+
     /**
      * <pre>
      * {@literal @}Scope <-- 어떤 시점에 Bean을 생성/소멸 시킬지 생명주기를 설정
@@ -80,23 +80,23 @@ public class TaskletProcessingConfiguration {
         List<String> items = this.getItems();
         return (contribution, chunkContext)->{
             StepExecution stepExecution = contribution.getStepExecution();
-            
+
             int chunkSize = this.getChunkSize(value);
             int fromIndex = stepExecution.getReadCount();
             int toIndex = fromIndex + chunkSize;
-            
+
             if(fromIndex >= items.size()) {
                 return RepeatStatus.FINISHED;
             }
-            
+
             List<String> subList = items.subList(fromIndex, toIndex);
             log.info("task item size: {}", subList.size());
-            
+
             stepExecution.setReadCount(toIndex);
             return RepeatStatus.CONTINUABLE;
         };
     }
-    
+
     /**
      * Batch-Application 실행 시 실행 옵션으롤 chunk size 지정
      * 입력 된 실행옵션이 없으면 size=10으로 지정

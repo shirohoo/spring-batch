@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.model;
+package io.spring.batch.job.model;
 
 import lombok.*;
 

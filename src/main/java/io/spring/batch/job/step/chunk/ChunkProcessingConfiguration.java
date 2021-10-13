@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.step.chunk;
+package io.spring.batch.job.step.chunk;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ import static java.lang.Integer.parseInt;
 public class ChunkProcessingConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     /**
      * Batch items
      */
@@ -39,7 +39,7 @@ public class ChunkProcessingConfiguration {
         }
         return items;
     }
-    
+
     @Bean
     public Job chunkProcessingJob() {
         return jobBuilderFactory.get("chunkProcessing")
@@ -47,7 +47,7 @@ public class ChunkProcessingConfiguration {
                                 .start(this.chunkBaseStep(null))
                                 .build();
     }
-    
+
     /**
      * <pre>
      * {@literal @}Scope <-- 어떤 시점에 Bean을 생성/소멸 시킬지 생명주기를 설정
@@ -78,7 +78,7 @@ public class ChunkProcessingConfiguration {
                                  .writer(this.itemWriter())
                                  .build();
     }
-    
+
     /**
      * <pre>
      * Batch-Application 실행 시 실행 옵션으롤 chunk size 지정
@@ -89,7 +89,7 @@ public class ChunkProcessingConfiguration {
     private int getChunkSize(String value) {
         return StringUtils.isNotEmpty(value) ? parseInt(value) : 10;
     }
-    
+
     /**
      * <pre>
      * chunk step 종료 시점은 ItemReader가 null을 리턴할때까지이다
@@ -99,11 +99,11 @@ public class ChunkProcessingConfiguration {
     private ItemReader<String> itemReader() {
         return new ListItemReader<>(this.getItems());
     }
-    
+
     private ItemProcessor<? super String, String> itemProcessor() {
         return item->item + ", Spring-Batch";
     }
-    
+
     private ItemWriter<? super String> itemWriter() {
         return items->log.info("task item size: {}", items.size());
     }

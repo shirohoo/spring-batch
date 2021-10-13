@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.model;
+package io.spring.batch.job.model;
 
 import lombok.*;
 
@@ -13,13 +13,13 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Person {
-    
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String name;
-    
+
     private int age;
-    
+
     private String address;
 }

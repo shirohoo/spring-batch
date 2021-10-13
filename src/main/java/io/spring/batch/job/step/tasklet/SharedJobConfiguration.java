@@ -1,4 +1,4 @@
-package io.batch.springbatch.job.step.tasklet;
+package io.spring.batch.job.step.tasklet;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class SharedJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     /**
      * <pre>
      * 각 Step끼리는 데이터 공유가 되지 않으므로
@@ -37,49 +37,49 @@ public class SharedJobConfiguration {
                                 .next(this.shareStep2())
                                 .build();
     }
-    
+
     @Bean
     public Step shareStep1() {
         return stepBuilderFactory.get("shareStep1")
                                  .tasklet((contribution, chunkContext)->{
                                      StepExecution stepExecution = contribution.getStepExecution();
-            
+
                                      ExecutionContext stepExecutionContext = stepExecution.getExecutionContext();
                                      stepExecutionContext.putString("stepKey", "step execution context");
-            
+
                                      JobExecution jobExecution = stepExecution.getJobExecution();
                                      ExecutionContext jobExecutionContext = jobExecution.getExecutionContext();
                                      jobExecutionContext.putString("jobKey", "job execution context");
-            
+
                                      JobParameters jobParameters = jobExecution.getJobParameters();
                                      JobInstance jobInstance = jobExecution.getJobInstance();
-            
+
                                      log.info(">>>>>>>>>> shareStep1\njobName: {}\nstepName: {}\nparameter:{}",
                                               jobInstance.getJobName(),
                                               stepExecution.getStepName(),
                                               jobParameters.getLong("run.id")
                                              );
-            
+
                                      return RepeatStatus.FINISHED;
                                  }).build();
     }
-    
+
     @Bean
     public Step shareStep2() {
         return stepBuilderFactory.get("shareStep2")
                                  .tasklet((contribution, chunkContext)->{
                                      StepExecution stepExecution = contribution.getStepExecution();
-            
+
                                      ExecutionContext stepExecutionContext = stepExecution.getExecutionContext();
-            
+
                                      JobExecution jobExecution = stepExecution.getJobExecution();
                                      ExecutionContext jobExecutionContext = jobExecution.getExecutionContext();
-            
+
                                      log.info(">>>>>>>>>> shareStep2\njobKey: {}\nstepKey: {}",
                                               jobExecutionContext.getString("jobKey", "emptyJobKey"),
                                               stepExecutionContext.getString("stepKey", "emptyStepKey")
                                              );
-            
+
                                      return RepeatStatus.FINISHED;
                                  }).build();
     }

@@ -1,7 +1,7 @@
-package io.batch.springbatch.job.item.jpa;
+package io.spring.batch.job.item.jpa;
 
-import io.batch.springbatch.job.custom.CustomItemReader;
-import io.batch.springbatch.job.model.Person;
+import io.spring.batch.job.custom.CustomItemReader;
+import io.spring.batch.job.model.Person;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,13 +35,13 @@ public class JpaConfiguration {
     private final EntityManagerFactory entityManagerFactory;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    
+
     private static final String JOB_NAME = "jpaJob";
     private static final String STEP_ONE = "jpaStep";
-    
+
     private static final String JPA_CURSOR_ITEM_READER = "jpaCursorItemReader";
     private static final String SELECT_QUERY = "select p from Person p";
-    
+
     @Bean
     public Job jpaJob() throws Exception {
         return jobBuilderFactory.get(JOB_NAME)
@@ -49,7 +49,7 @@ public class JpaConfiguration {
                                 .start(jpaStep(null))
                                 .build();
     }
-    
+
     @Bean
     @JobScope
     public Step jpaStep(@Value("#{jobParameters[chunkSize]}") String value) throws Exception {
@@ -61,7 +61,7 @@ public class JpaConfiguration {
                                  .writer(this.jpaItemWriter())
                                  .build();
     }
-    
+
     /**
      * Batch-Application 실행 시 실행 옵션으롤 chunk size 지정
      * 입력 된 실행옵션이 없으면 size=10으로 지정
@@ -70,7 +70,7 @@ public class JpaConfiguration {
     private int getChunkSize(String value) {
         return StringUtils.isNotEmpty(value) ? parseInt(value) : 10;
     }
-    
+
     private List<Person> getItems() {
         List<Person> list = new ArrayList<>();
         for(int i = 1; i <= 100; i++) {
@@ -78,14 +78,14 @@ public class JpaConfiguration {
         }
         return list;
     }
-    
+
     /**
      * 비영속 상태의 ItemReader
      */
     private ItemReader<Person> customItemReader(List<Person> list) {
         return new CustomItemReader(list);
     }
-    
+
     /**
      * 영속, 준영속 상태의 ItemReader
      */
@@ -95,21 +95,21 @@ public class JpaConfiguration {
                 .entityManagerFactory(entityManagerFactory)
                 .queryString(SELECT_QUERY)
                 .build();
-        
+
         itemReader.afterPropertiesSet();
         return itemReader;
     }
-    
+
     private ItemProcessor<? super Person, ? extends Person> itemProcessor() {
         return item->item.getAge() % 2 == 0 ? item : null;
     }
-    
+
     private ItemWriter<Person> jpaItemWriter() throws Exception {
         JpaItemWriter<Person> itemWriter = new JpaItemWriterBuilder<Person>()
                 .entityManagerFactory(entityManagerFactory)
                 .usePersist(true) // EntityManager가 merge가 아닌 persist를 사용하게 강제함.
                 .build();
-        
+
         itemWriter.afterPropertiesSet();
         return itemWriter;
     }
