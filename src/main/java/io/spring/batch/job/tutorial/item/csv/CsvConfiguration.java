@@ -1,6 +1,6 @@
-package io.spring.batch.job.item.csv;
+package io.spring.batch.job.tutorial.item.csv;
 
-import io.spring.batch.job.model.Member;
+import io.spring.batch.job.tutorial.model.Member;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

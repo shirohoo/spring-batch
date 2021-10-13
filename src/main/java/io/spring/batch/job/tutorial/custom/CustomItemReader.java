@@ -1,4 +1,4 @@
-package io.spring.batch.job.custom;
+package io.spring.batch.job.tutorial.custom;
 
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;

@@ -1,7 +1,7 @@
-package io.spring.batch.job.item.jpa;
+package io.spring.batch.job.tutorial.item.jpa;
 
-import io.spring.batch.job.custom.CustomItemReader;
-import io.spring.batch.job.model.Person;
+import io.spring.batch.job.tutorial.custom.CustomItemReader;
+import io.spring.batch.job.tutorial.model.Person;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

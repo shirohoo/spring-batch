@@ -1,4 +1,4 @@
-package io.spring.batch.job.step.chunk;
+package io.spring.batch.job.tutorial.step.chunk;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;

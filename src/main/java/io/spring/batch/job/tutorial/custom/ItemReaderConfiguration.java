@@ -1,6 +1,6 @@
-package io.spring.batch.job.custom;
+package io.spring.batch.job.tutorial.custom;
 
-import io.spring.batch.job.model.Member;
+import io.spring.batch.job.tutorial.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
