@@ -1,4 +1,4 @@
-package io.spring.batch.job.file.model;
+package io.spring.batch.job.example.file.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

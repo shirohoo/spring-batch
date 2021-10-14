@@ -1,8 +1,8 @@
-package io.spring.batch.job.file;
+package io.spring.batch.job.example.file;
 
-import io.spring.batch.job.file.model.TestSpec;
-import io.spring.batch.job.file.parser.TestSpecFileParser;
-import io.spring.batch.job.file.repository.TestSpecRepository;
+import io.spring.batch.job.example.file.model.TestSpec;
+import io.spring.batch.job.example.file.parser.TestSpecFileParser;
+import io.spring.batch.job.example.file.repository.TestSpecRepository;
 import java.io.File;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

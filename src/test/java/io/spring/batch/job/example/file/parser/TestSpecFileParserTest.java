@@ -1,9 +1,8 @@
-package io.spring.batch.job.file.parser;
+package io.spring.batch.job.example.file.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import io.spring.batch.job.file.model.TestSpec;
-import io.spring.batch.job.file.model.TestSpecData;
-import io.spring.batch.job.file.parser.TestSpecFileParser;
+import io.spring.batch.job.example.file.model.TestSpec;
+import io.spring.batch.job.example.file.model.TestSpecData;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.List;

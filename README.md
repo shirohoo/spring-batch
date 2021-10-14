@@ -427,7 +427,7 @@ class FileReadJobConfigurationTest {
     void job() throws Exception {
         // given
         // 배치잡의 무난한 실행을 위해 유니크 파라미터를 생성
-        JobParameters jobParameters = jobLauncherTestUtils.getUniqueJobParametersBuilder().toJobParameters();
+        JobParameters jobParameters = jobLauncherTestUtils.getUniqueJobParameters();
 
         // when
         // JobLauncherTestUtils로 로드한 배치잡을 실행

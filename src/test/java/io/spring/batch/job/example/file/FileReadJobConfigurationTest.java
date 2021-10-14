@@ -1,4 +1,4 @@
-package io.spring.batch.job.file;
+package io.spring.batch.job.example.file;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import io.spring.batch.config.TestBatchConfiguration;
@@ -37,7 +37,7 @@ class FileReadJobConfigurationTest {
     @Test
     void job() throws Exception {
         // given
-        JobParameters jobParameters = jobLauncherTestUtils.getUniqueJobParametersBuilder().toJobParameters();
+        JobParameters jobParameters = jobLauncherTestUtils.getUniqueJobParameters();
 
         // when
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);

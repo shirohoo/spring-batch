@@ -1,7 +1,7 @@
-package io.spring.batch.job.file.parser;
+package io.spring.batch.job.example.file.parser;
 
-import io.spring.batch.job.file.model.TestSpec;
-import io.spring.batch.job.file.model.TestSpecData;
+import io.spring.batch.job.example.file.model.TestSpec;
+import io.spring.batch.job.example.file.model.TestSpecData;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
