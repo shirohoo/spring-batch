@@ -31,6 +31,7 @@ public class TestSpecData {
     private String account;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEST_SPEC_ID")
     private TestSpec testSpec;
 
     protected TestSpecData() {
@@ -69,6 +70,10 @@ public class TestSpecData {
         }
 
         return TestSpecData.of(regDate, cardNumber, account);
+    }
+
+    public void setTestSpec(final TestSpec testSpec) {
+        this.testSpec = testSpec;
     }
 
 }

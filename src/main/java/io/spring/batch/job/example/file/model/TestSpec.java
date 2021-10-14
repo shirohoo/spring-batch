@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -30,8 +29,7 @@ public class TestSpec {
     private long dataSize;
 
     @Getter
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "TEST_SPEC_ID")
+    @OneToMany(mappedBy = "testSpec", cascade = CascadeType.ALL)
     private List<TestSpecData> dataList = new ArrayList<>();
 
     protected TestSpec() {
@@ -41,6 +39,7 @@ public class TestSpec {
         this.workDate = workDate;
         this.dataSize = dataSize;
         this.dataList = new ArrayList<>(dataList);
+        this.dataList.forEach(testSpecData -> testSpecData.setTestSpec(TestSpec.this));
     }
 
     public static TestSpec of(final LocalDate workDate, final long dataSize, final List<TestSpecData> dataList) {
