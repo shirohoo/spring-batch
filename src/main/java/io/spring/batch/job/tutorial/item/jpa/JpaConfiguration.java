@@ -1,7 +1,7 @@
 package io.spring.batch.job.tutorial.item.jpa;
 
 import io.spring.batch.job.tutorial.custom.CustomItemReader;
-import io.spring.batch.job.tutorial.model.Person;
+import io.spring.batch.job.tutorial.model.entity.Person;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +74,7 @@ public class JpaConfiguration {
     private List<Person> getItems() {
         List<Person> list = new ArrayList<>();
         for(int i = 1; i <= 100; i++) {
-            list.add(new Person(null, "name" + i, i, "address" + i));
+            list.add(Person.of(null, "name" + i, i, "address" + i));
         }
         return list;
     }

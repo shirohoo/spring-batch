@@ -1,6 +1,6 @@
 package io.spring.batch.job.tutorial.item.jdbc;
 
-import io.spring.batch.job.tutorial.model.Member;
+import io.spring.batch.job.tutorial.model.dto.Member;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +71,7 @@ public class JdbcConfiguration {
                 .name(JDBC_CURSOR_ITEM_READER)
                 .dataSource(dataSource)
                 .sql(SELECT_QUERY)
-                .rowMapper((rs, rowNum)->new Member(rs.getInt(1),
+                .rowMapper((rs, rowNum)-> Member.of(rs.getInt(1),
                                                     rs.getString(2),
                                                     rs.getInt(3),
                                                     rs.getString(4))).build();

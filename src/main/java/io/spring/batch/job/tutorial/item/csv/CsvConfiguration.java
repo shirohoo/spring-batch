@@ -1,6 +1,6 @@
 package io.spring.batch.job.tutorial.item.csv;
 
-import io.spring.batch.job.tutorial.model.Member;
+import io.spring.batch.job.tutorial.model.dto.Member;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,7 +86,7 @@ public class CsvConfiguration {
             String name = fieldSet.readString("name");
             int age = fieldSet.readInt("age");
             String address = fieldSet.readString("address");
-            return new Member(id, name, age, address);
+            return Member.of(id, name, age, address);
         });
 
         FlatFileItemReader<Member> itemReader = new FlatFileItemReaderBuilder<Member>()

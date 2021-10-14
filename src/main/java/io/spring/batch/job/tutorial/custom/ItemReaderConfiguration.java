@@ -1,6 +1,6 @@
 package io.spring.batch.job.tutorial.custom;
 
-import io.spring.batch.job.tutorial.model.Member;
+import io.spring.batch.job.tutorial.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -44,7 +44,7 @@ public class ItemReaderConfiguration {
     private List<Member> getItems() {
         List<Member> members = new ArrayList<>();
         for(int i = 0; i < 100; i++) {
-            members.add(new Member(i + 1, "name" + i, 29, "address"));
+            members.add(Member.of(i + 1, "name" + i, 29, "address"));
         }
         return members;
     }
