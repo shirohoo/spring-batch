@@ -2,23 +2,32 @@ package io.spring.batch.job.example.file.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "TEST_SPEC_DATA")
 public class TestSpecData {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TEST_SPEC_DATA_ID")
     private Long id;
 
+    @Column(name = "REG_DATE")
     private LocalDate regDate;
 
+    @Column(name = "CARD_NUMBER")
     private String cardNumber;
 
+    @Column(name = "ACCOUNT")
     private String account;
 
     @ManyToOne(fetch = FetchType.LAZY)
