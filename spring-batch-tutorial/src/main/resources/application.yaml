@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: local
+
+  batch:
+    job:
+      ## 실행옵션에 job name이 없을 경우 아무런 job도 실행하지 않음 (안전장치)
+      names: ${job.name:NONE}
+
+    ## always - Spring-Batch DDL이 DB에 항상 반영 // 개발환경 추천
+    ## embedded - Embedded DB인 경우에만 Spring-Batch DDL이 DB에 반영 // 개발환경 추천
+    ## never - Spring-Batch DDL이 DB에 절대 반영되지 않음 (직접 SQL을 관리) // 운영환경 추천
+    initialize-schema: never
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    root: info
