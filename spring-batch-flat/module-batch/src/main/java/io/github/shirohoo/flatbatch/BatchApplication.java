@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableBatchProcessing
-public class FlatBatchApplication {
+public class BatchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FlatBatchApplication.class, args);
+        SpringApplication.run(BatchApplication.class, args);
     }
 
 }

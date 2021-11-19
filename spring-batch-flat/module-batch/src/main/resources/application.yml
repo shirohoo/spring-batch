@@ -3,7 +3,7 @@ spring:
     job:
       names: ${job.name:NONE}
     jdbc:
-      initialize-schema: never
+      initialize-schema: always
 
   jpa:
     hibernate:
@@ -16,4 +16,4 @@ spring:
     hikari:
       jdbc-url: jdbc:h2:tcp://localhost/~/batch
       username: sa
-      password: 
+      password:

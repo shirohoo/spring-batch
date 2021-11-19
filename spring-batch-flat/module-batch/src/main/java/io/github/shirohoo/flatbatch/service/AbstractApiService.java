@@ -21,6 +21,7 @@ public abstract class AbstractApiService {
     protected abstract ApiResponseDTO doService(RestTemplate restTemplate, ApiInfo apiInfo);
 
     private RestTemplate buildRestTemplate() {
+
         return new RestTemplateBuilder()
             .defaultHeader("Content-Type", "application/json")
             .errorHandler(new ResponseErrorHandler() {
