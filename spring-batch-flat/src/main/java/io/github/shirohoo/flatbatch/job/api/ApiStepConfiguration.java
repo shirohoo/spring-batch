@@ -14,6 +14,7 @@ import io.github.shirohoo.flatbatch.partition.ProductPartitioner;
 import io.github.shirohoo.flatbatch.service.ApiService1;
 import io.github.shirohoo.flatbatch.service.ApiService2;
 import io.github.shirohoo.flatbatch.service.ApiService3;
+import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
@@ -106,11 +107,11 @@ public class ApiStepConfiguration {
     public ItemProcessor itemProcessor() {
         ClassifierCompositeItemProcessor<ProductDTO, ApiRequestDTO> processor = new ClassifierCompositeItemProcessor<>();
         ProcessorClassifier<ProductDTO, ItemProcessor<?, ? extends ApiRequestDTO>> classifier = new ProcessorClassifier();
-        classifier.setProcessorMap(Map.of(
-            "1", new ApiItemProcessor1(),
-            "2", new ApiItemProcessor2(),
-            "3", new ApiItemProcessor3()
-        ));
+        Map<String, ItemProcessor<ProductDTO, ApiRequestDTO>> processorMap = new HashMap<>();
+        processorMap.put("1", new ApiItemProcessor1());
+        processorMap.put("2", new ApiItemProcessor2());
+        processorMap.put("3", new ApiItemProcessor3());
+        classifier.setProcessorMap(processorMap);
         processor.setClassifier(classifier);
         return processor;
     }
@@ -119,11 +120,11 @@ public class ApiStepConfiguration {
     public ItemWriter itemWriter() {
         ClassifierCompositeItemWriter<ApiRequestDTO> writer = new ClassifierCompositeItemWriter<>();
         WriterClassifier<ApiRequestDTO, ItemWriter<? super ApiRequestDTO>> classifier = new WriterClassifier();
-        classifier.setWriterMap(Map.of(
-            "1", new ApiItemWriter1(apiService1),
-            "2", new ApiItemWriter2(apiService2),
-            "3", new ApiItemWriter3(apiService3)
-        ));
+        HashMap<String, ItemWriter<ApiRequestDTO>> writerMap = new HashMap<>();
+        writerMap.put("1", new ApiItemWriter1(apiService1));
+        writerMap.put("2", new ApiItemWriter2(apiService2));
+        writerMap.put("3", new ApiItemWriter3(apiService3));
+        classifier.setWriterMap(writerMap);
         writer.setClassifier(classifier);
         return writer;
     }

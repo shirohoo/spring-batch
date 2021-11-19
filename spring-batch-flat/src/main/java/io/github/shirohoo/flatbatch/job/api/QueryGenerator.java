@@ -12,11 +12,11 @@ public class QueryGenerator {
 
     public static ProductDTO[] getProductList(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return jdbcTemplate.query("select type from product group by type", new ProductRowMapper() {
+        return jdbcTemplate.query("SELECT TYPE FROM PRODUCT GROUP BY TYPE", new ProductRowMapper() {
                 @Override
                 public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return ProductDTO.builder()
-                        .type(rs.getString("type"))
+                        .type(rs.getString("TYPE"))
                         .build();
                 }
             })
@@ -24,7 +24,9 @@ public class QueryGenerator {
     }
 
     public static Map<String, Object> getParameterForQuery(String parameter, String value) {
-        return Map.of(parameter, value);
+        Map<String, Object> parameters = new java.util.HashMap<>();
+        parameters.put(parameter, value);
+        return parameters;
     }
 
 }

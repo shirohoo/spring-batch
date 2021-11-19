@@ -10,10 +10,10 @@ public class ProductRowMapper implements RowMapper<ProductDTO> {
     @Override
     public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
         return ProductDTO.builder()
-            .id(rs.getLong("id"))
-            .name(rs.getString("name"))
-            .price(rs.getInt("price"))
-            .type(rs.getString("type"))
+            .id(rs.getLong("ID"))
+            .name(rs.getString("NAME"))
+            .price(rs.getInt("PRICE"))
+            .type(rs.getString("TYPE"))
             .build();
     }
 

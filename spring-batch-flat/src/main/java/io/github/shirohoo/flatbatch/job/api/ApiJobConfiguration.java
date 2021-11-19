@@ -25,7 +25,6 @@ public class ApiJobConfiguration {
     @Bean
     public Job apiJob() {
         return jobBuilderFactory.get("apiJob")
-            .incrementer(new RunIdIncrementer())
             .listener(new JobListener())
             .start(apiStep1())
             .next(jobStep)

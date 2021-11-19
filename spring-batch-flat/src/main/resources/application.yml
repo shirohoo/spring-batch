@@ -2,6 +2,8 @@ spring:
   batch:
     job:
       names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never
 
   jpa:
     hibernate:
@@ -12,6 +14,6 @@ spring:
 
   datasource:
     hikari:
-      jdbc-url: jdbc:h2:tcp://localhost/~/local
+      jdbc-url: jdbc:h2:tcp://localhost/~/batch
       username: sa
       password: 

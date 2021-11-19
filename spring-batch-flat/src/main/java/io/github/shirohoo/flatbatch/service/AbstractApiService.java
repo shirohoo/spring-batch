@@ -6,10 +6,7 @@ import io.github.shirohoo.flatbatch.domain.ApiResponseDTO;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,13 +14,7 @@ public abstract class AbstractApiService {
 
     public ApiResponseDTO service(List<? extends ApiRequestDTO> apiRequest) {
         RestTemplate restTemplate = buildRestTemplate();
-
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-
         ApiInfo apiInfo = ApiInfo.builder().apiRequestList(apiRequest).build();
-
         return doService(restTemplate, apiInfo);
     }
 
@@ -31,6 +22,7 @@ public abstract class AbstractApiService {
 
     private RestTemplate buildRestTemplate() {
         return new RestTemplateBuilder()
+            .defaultHeader("Content-Type", "application/json")
             .errorHandler(new ResponseErrorHandler() {
                 @Override
                 public boolean hasError(ClientHttpResponse response) throws IOException {

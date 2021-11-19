@@ -30,7 +30,6 @@ public class ApiJobChildConfiguration {
     @Bean
     public Job childJob() {
         return jobBuilderFactory.get("childJob")
-            .incrementer(new RunIdIncrementer())
             .start(apiMasterStep)
             .build();
     }
