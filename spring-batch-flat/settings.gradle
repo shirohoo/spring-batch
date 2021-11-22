@@ -1,0 +1,38 @@
+rootProject.name = 'flatbatch'
+[
+        "module-batch",
+        "module-api",
+        "module-model",
+].each { module ->
+    def moduleDir = new File(rootDir, module)
+    if (!moduleDir.exists()) {
+        moduleDir.mkdirs()
+    }
+
+    def buildScript = new File(moduleDir.absolutePath, "build.gradle")
+    if (!buildScript.exists()) {
+        buildScript.text =
+                """
+                    dependencies {
+                    
+                    }
+                """.stripIndent(20).trim()
+    }
+
+    [
+            "src/main/java/io/github/shirohoo/$rootProject.name",
+            "src/main/resources",
+            "src/test/java/io/github/shirohoo/$rootProject.name",
+            "src/test/resources",
+    ].each { source ->
+        def srcDir = new File(moduleDir.absolutePath, source)
+        if (!srcDir.exists()) {
+            srcDir.mkdirs()
+        }
+    }
+
+    def projectName = ":$rootProject.name-$moduleDir.name"
+    include projectName
+    project(projectName).projectDir = moduleDir
+
+}

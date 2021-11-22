@@ -1,0 +1,19 @@
+spring:
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:tcp://localhost/~/batch
+      username: sa
+      password:
