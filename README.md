@@ -120,16 +120,18 @@ path: spring-batch-core/org.springframework/batch/core/*
 ---
 
 - `BATCH_JOB_INSTANCE`
-  - `Job`이 실행되며 생성되는 최상위 계층의 테이블
+  - `Job`이 실행되며 생성되는 최상위 계층의 테이블로 말 그대로 Job의 인스턴스를 의미한다
   - `job_name`과 `job_key`를 기준으로 하나의 `row`가 생성되며, 같은 `job_name`과 `job_key`가 저장될 수 없다 (Unique key)
   - `job_key`는 `BATCH_JOB_EXECUTION_PARAMS`에 저장되는 `Parameter`를 나열해 암호화해 저장한다
 - `BATCH_JOB_EXECUTION`
+  - Job 인스턴스의 `한번의 실행`을 의미하는 테이블
   - Job이 실행되는 동안 시작/종료 시간, job 상태 등을 관리한다
-- `BATCH_JOB_EXECUTION_PARAMS`
+- `BATCH_JOB_EXECUTION_PARAMS` 
   - Job을 실행하기 위해 주입된 parameter 정보 저장한다
 - `BATCH_JOB_EXECUTION_CONTEXT`
-  - Job이 실행되며 공유해야할 데이터를  직렬화해 저장한다
+  - Job이 실행되며 공유해야할 데이터를 직렬화해 저장한다
 - `BATCH_STEP_EXECUTION`
+  - Step의 `한번의 실행`을 의미하는 테이블
   - `Step`이 실행되는 동안 필요한 데이터 또는 실행된 결과 저장한다
 - `BATCH_STEP_EXECUTION_CONTEXT`
   - `Step`이 실행되며 공유해야할 데이터를 직렬화해 저장한다
